@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group 'br.com.pp'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "br.com.pp.loader.LoaderMain"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    compile 'org.mongodb:mongodb-driver-sync:3.10.1'
+    compile 'com.opencsv:opencsv:4.5'
+}
