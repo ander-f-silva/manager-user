@@ -24,4 +24,5 @@ jar {
 dependencies {
     compile 'org.mongodb:mongodb-driver-sync:3.10.1'
     compile 'com.opencsv:opencsv:4.5'
+    compile 'org.slf4j:slf4j-api:1.7.25'
 }

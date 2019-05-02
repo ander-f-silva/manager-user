@@ -1,6 +1,6 @@
-package br.com.pp.loader;
+package br.com.pp.batch;
 
-import br.com.pp.loader.repository.MongoRepository;
+import br.com.pp.batch.repository.MongoRepository;
 import br.com.pp.loader.util.FileCsvWrapper;
 import br.com.pp.loader.util.FileTextWrapper;
 import org.bson.Document;
@@ -12,15 +12,15 @@ import java.util.Map;
 
 import static java.time.LocalDateTime.now;
 
-public class UserBatch {
+public class Batch {
 
     private List<String> rankOne;
     private List<String> rankTwo;
     private FileCsvWrapper fileCsv;
     private MongoRepository mongoRepository;
 
-    public UserBatch(Map<String, String> mapPaths) throws Exception {
-        mongoRepository = new MongoRepository();
+    public Batch(Map<String, String> mapPaths, MongoRepository mongoRepository) throws Exception {
+        this.mongoRepository = mongoRepository;
         fileCsv = new FileCsvWrapper(mapPaths.get("fileUser"));
         rankOne = new FileTextWrapper(mapPaths.get("rankOne")).reader();
         rankTwo = new FileTextWrapper(mapPaths.get("rankTwo")).reader();
