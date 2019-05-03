@@ -13,7 +13,7 @@ repositories {
 
 jar {
     manifest {
-        attributes "Main-Class": "br.com.pp.loader.LoaderMain"
+        attributes "Main-Class": "br.com.pp.batch.ExecutorBatch"
     }
 
     from {
