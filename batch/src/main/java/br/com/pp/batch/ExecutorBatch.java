@@ -28,12 +28,12 @@ public class ExecutorBatch {
         log.info("File TXT 1. Param: {}",args[1]);
         log.info("File TXT 2. Param: {}",args[2]);
 
-        Map<String,String> mapPaths = new HashMap<>();
-        mapPaths.put("fileUser",args[0]);
-        mapPaths.put("rankOne",args[1]);
-        mapPaths.put("rankTwo",args[2]);
+        Map<String,String> mapParameters = new HashMap<>();
+        mapParameters.put("fileUser",args[0]);
+        mapParameters.put("rankOne",args[1]);
+        mapParameters.put("rankTwo",args[2]);
 
-        Batch userBatch = new Batch(mapPaths, mongoRepository);
+        Batch userBatch = new Batch(mapParameters, mongoRepository);
         userBatch.execute();
 
         log.info("End execute batch. Time: {}", new Date());

@@ -1,0 +1,9 @@
+server:
+  port: 7701
+
+spring:
+  data:
+    mongodb:
+      url: localhost
+      port: 7700
+      database: user-db
