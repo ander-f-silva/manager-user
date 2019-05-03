@@ -1,4 +1,4 @@
-package br.com.pp.loader.util;
+package br.com.pp.batch.util;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;

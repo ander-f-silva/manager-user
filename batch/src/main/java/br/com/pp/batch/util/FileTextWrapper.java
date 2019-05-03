@@ -1,4 +1,4 @@
-package br.com.pp.loader.util;
+package br.com.pp.batch.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

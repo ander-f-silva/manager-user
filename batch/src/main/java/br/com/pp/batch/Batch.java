@@ -1,8 +1,8 @@
 package br.com.pp.batch;
 
 import br.com.pp.batch.repository.MongoRepository;
-import br.com.pp.loader.util.FileCsvWrapper;
-import br.com.pp.loader.util.FileTextWrapper;
+import br.com.pp.batch.util.FileCsvWrapper;
+import br.com.pp.batch.util.FileTextWrapper;
 import org.bson.Document;
 
 import java.io.IOException;
