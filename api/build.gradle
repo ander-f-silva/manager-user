@@ -7,7 +7,7 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 
-group = 'br.com.pp.'
+group = 'br.com.pp'
 version = '1.0.0'
 sourceCompatibility = '1.8'
 
@@ -27,6 +27,9 @@ dependencies {
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
 	implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'io.damo.aspen:aspen:2.1.0'
+	testImplementation 'io.damo.aspen:aspen-spring:2.1.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 	testImplementation 'io.projectreactor:reactor-test'
@@ -45,3 +48,57 @@ compileTestKotlin {
 		jvmTarget = '1.8'
 	}
 }
+
+jacocoTestReport {
+	reports {
+		xml.enabled false
+		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			element = 'CLASS'
+			limit {
+				counter = 'LINE'
+				value = 'COVEREDRATIO'
+				minimum = 0.05
+			}
+			excludes = [
+					'br.com.pp.user.UserApplication',
+					'br.com.pp.user.dto.*',
+					'br.com.pp.user.exception.*'
+			]
+		}
+		rule {
+			element = 'CLASS'
+			includes = [
+					'br.com.pp.user.UserApplication',
+					'br.com.pp.user.dto.*',
+					'br.com.pp.user.exception.*'
+			]
+			limit {
+				counter = 'BRANCH'
+				value = 'COVEREDRATIO'
+				minimum = 0.5
+			}
+		}
+		rule {
+			element = 'CLASS'
+			includes = [
+					'br.com.pp.user.UserApplication',
+					'br.com.pp.user.dto.*',
+					'br.com.pp.user.exception.*'
+			]
+			limit {
+				counter = 'METHOD'
+				value = 'COVEREDRATIO'
+				minimum = 0.5
+			}
+		}
+	}
+}
+
+build.finalizedBy jacocoTestReport
