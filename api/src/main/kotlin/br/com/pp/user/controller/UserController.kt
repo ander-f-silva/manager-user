@@ -1,7 +1,6 @@
 package br.com.pp.user.controller
 
 import br.com.pp.user.domain.User
-import br.com.pp.user.dto.PageDto
 import br.com.pp.user.dto.UserDto
 import br.com.pp.user.exception.NotFoundException
 import br.com.pp.user.exception.PaginatorException
@@ -12,7 +11,6 @@ import org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-
 
 @RestController
 @RequestMapping("/api/users", produces = [APPLICATION_JSON_UTF8_VALUE])
@@ -29,7 +27,7 @@ class UserController(val userService: UserService) {
     fun findByNameAndUserName(@PathVariable name: String,
                               @PathVariable userName: String,
                               @RequestParam(defaultValue = "1") pageCurrent: Long,
-                              @RequestParam(defaultValue = "15") pageSize: Long): Mono<PageDto<List<UserDto>>> {
+                              @RequestParam(defaultValue = "15") pageSize: Long): Flux<UserDto> {
         logger.info("Search user informed name {} and user name {}", name, userName)
 
         if (ZERO_VALUE >= pageCurrent || ZERO_VALUE >= pageSize) {
@@ -46,16 +44,9 @@ class UserController(val userService: UserService) {
 
     }
 
-    private fun getPagination(users: Flux<User>, pageCurrent: Long, pageSize: Long): Mono<PageDto<List<UserDto>>> {
-        var total = users.count().block() as Long
-
-        var elements = users.skip((pageCurrent - 1) * pageSize)
+    private fun getPagination(users: Flux<User>, pageCurrent: Long, pageSize: Long): Flux<UserDto> {
+        return users.skip((pageCurrent - 1) * pageSize)
                 .take(pageSize)
                 .map { UserDto(it.id, it.name, it.userName) }
-                .collectList()
-                .block() as List<UserDto>
-
-         return Mono.just(PageDto(elements,pageCurrent, pageSize, total))
-
     }
 }

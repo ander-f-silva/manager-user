@@ -6,6 +6,7 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
 
 group = 'br.com.pp'
 version = '1.0.0'
@@ -15,6 +16,10 @@ repositories {
 	jcenter()
 	maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 	mavenCentral()
+}
+
+jacoco {
+	toolVersion = '0.8.2'
 }
 
 dependencies {
@@ -27,7 +32,6 @@ dependencies {
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
 	implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'io.damo.aspen:aspen:2.1.0'
 	testImplementation 'io.damo.aspen:aspen-spring:2.1.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -74,7 +78,7 @@ jacocoTestCoverageVerification {
 		}
 		rule {
 			element = 'CLASS'
-			includes = [
+			excludes = [
 					'br.com.pp.user.UserApplication',
 					'br.com.pp.user.dto.*',
 					'br.com.pp.user.exception.*'
@@ -87,7 +91,7 @@ jacocoTestCoverageVerification {
 		}
 		rule {
 			element = 'CLASS'
-			includes = [
+			excludes = [
 					'br.com.pp.user.UserApplication',
 					'br.com.pp.user.dto.*',
 					'br.com.pp.user.exception.*'
