@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("/api/users", produces = [APPLICATION_JSON_UTF8_VALUE])
@@ -26,19 +25,17 @@ class UserController(val userService: UserService) {
     @GetMapping("/name/{name}/username/{userName}")
     fun findByNameAndUserName(@PathVariable name: String,
                               @PathVariable userName: String,
-                              @RequestParam(defaultValue = "1") pageCurrent: Long,
-                              @RequestParam(defaultValue = "15") pageSize: Long): Flux<UserDto> {
+                              @RequestParam(defaultValue = "1", value = "page") pageCurrent: Long,
+                              @RequestParam(defaultValue = "15", value = "size") pageSize: Long): Flux<UserDto> {
         logger.info("Search user informed name {} and user name {}", name, userName)
 
         if (ZERO_VALUE >= pageCurrent || ZERO_VALUE >= pageSize) {
             logger.error("Error in paging information. Page {} and Size {}", pageCurrent, pageSize)
-            var pEx = PaginatorException()
-            logger.error("Occurrence: ", pEx)
-            throw pEx
+            return Flux.error(PaginatorException())
         }
 
         var users = userService.findByNameAndUserName(name, userName)
-                .switchIfEmpty(Mono.error(NotFoundException()))
+                .switchIfEmpty(Flux.error(NotFoundException()))
 
         return getPagination(users, pageCurrent, pageSize)
 
