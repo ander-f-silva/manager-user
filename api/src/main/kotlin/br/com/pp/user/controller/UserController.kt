@@ -7,6 +7,7 @@ import br.com.pp.user.exception.PaginatorException
 import br.com.pp.user.service.UserService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
@@ -23,6 +24,7 @@ class UserController(val userService: UserService) {
     }
 
     @GetMapping("/name/{name}/username/{userName}")
+    @ResponseStatus(HttpStatus.OK)
     fun findByNameAndUserName(@PathVariable name: String,
                               @PathVariable userName: String,
                               @RequestParam(defaultValue = "1", value = "page") pageCurrent: Long,
