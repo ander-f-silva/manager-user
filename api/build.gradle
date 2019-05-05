@@ -14,8 +14,8 @@ sourceCompatibility = '1.8'
 
 repositories {
 	jcenter()
-	maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 	mavenCentral()
+	maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 }
 
 jacoco {
@@ -56,6 +56,11 @@ compileTestKotlin {
 	}
 }
 
+test {
+	useJUnitPlatform()
+	systemProperty 'junit.jupiter.extensions.autodetection.enabled','true'
+}
+
 jacocoTestReport {
 	reports {
 		xml.enabled false
@@ -71,7 +76,7 @@ jacocoTestCoverageVerification {
 			limit {
 				counter = 'LINE'
 				value = 'COVEREDRATIO'
-				minimum = 0.05
+				minimum = 0.95
 			}
 			excludes = [
 					'br.com.pp.user.UserApplication',
@@ -89,7 +94,7 @@ jacocoTestCoverageVerification {
 			limit {
 				counter = 'BRANCH'
 				value = 'COVEREDRATIO'
-				minimum = 0.5
+				minimum = 0.95
 			}
 		}
 		rule {
@@ -102,7 +107,7 @@ jacocoTestCoverageVerification {
 			limit {
 				counter = 'METHOD'
 				value = 'COVEREDRATIO'
-				minimum = 0.5
+				minimum = 0.95
 			}
 		}
 	}
