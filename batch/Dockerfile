@@ -1,4 +1,4 @@
-FROM java:openjdk-8-jre
+FROM openjdk:8-alpine
 
 ENV APP_HOME "/opt/app"
 

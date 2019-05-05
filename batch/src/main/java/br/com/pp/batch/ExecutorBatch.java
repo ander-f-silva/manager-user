@@ -37,5 +37,7 @@ public class ExecutorBatch {
         userBatch.execute();
 
         log.info("End execute batch. Time: {}", new Date());
+
+        System.exit(0);
     }
 }
