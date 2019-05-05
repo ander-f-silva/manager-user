@@ -2,3 +2,7 @@
 .gradle
 build
 /out/
+!/src/test/resources/users-empty.csv
+!/src/test/resources/users-test.csv
+!/src/test/resources/list-empty.txt
+!/src/test/resources/list-test.txt

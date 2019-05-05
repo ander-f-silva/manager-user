@@ -3,7 +3,7 @@ HELP.md
 *.csv
 *.txt
 files
-/build/
+build
 !gradle/wrapper/gradle-wrapper.jar
 /data/db/
 
