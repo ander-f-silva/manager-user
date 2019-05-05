@@ -1,7 +1,5 @@
 package br.com.pp.batch.util;
 
-import br.com.pp.batch.exception.FileEmptyException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,13 +11,8 @@ public class FileTextWrapper {
 
     private BufferedReader reader;
 
-    public FileTextWrapper(String path) throws IOException, FileEmptyException {
+    public FileTextWrapper(String path) throws IOException {
         reader = Files.newBufferedReader(Paths.get(path));
-
-        if(reader.lines().count() == 0) {
-            reader.close();
-            throw new FileEmptyException("The file is empty");
-        }
     }
 
     public List<String> reader() throws IOException {
