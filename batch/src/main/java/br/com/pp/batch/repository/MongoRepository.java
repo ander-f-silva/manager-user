@@ -15,7 +15,7 @@ public class MongoRepository {
     private MongoDatabase database;
     private MongoCollection<Document> collection;
 
-    public MongoRepository() throws IOException {
+    public MongoRepository() throws Exception {
         MongoProperties mongoProperties = new MongoProperties();
 
         String urlConnection = mongoProperties.getValue("mongodb.url.connection");

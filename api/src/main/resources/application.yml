@@ -4,6 +4,4 @@ server:
 spring:
   data:
     mongodb:
-      url: localhost
-      port: 7700
-      database: user-db
+      uri: mongodb://localhost:7700/user-db

@@ -5,6 +5,7 @@ HELP.md
 files
 /build/
 !gradle/wrapper/gradle-wrapper.jar
+/data/db/
 
 ### STS ###
 .apt_generated

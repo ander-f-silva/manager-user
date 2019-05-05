@@ -16,8 +16,8 @@ public class ExecutorBatch {
     static {
         try {
             mongoRepository = new MongoRepository();
-        } catch (IOException ioEx) {
-            log.error("Error of connection", ioEx);
+        } catch (Exception ex) {
+            log.error("Error of connection", ex);
         }
     }
 

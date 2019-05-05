@@ -1,0 +1,49 @@
+version: '3.1'
+
+services:
+  user-api:
+    container_name: user-api
+    restart: always
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
+    image: user-api:latest
+    environment:
+      ENVIRONMENT: local
+      DB_ENDPOINT: mongodb://user-mongo/user-db
+    ports:
+      - 7701:7701
+    depends_on:
+      - mongodb
+
+  user-batch:
+    container_name: user-batch
+    restart: always
+    build:
+      context: .
+      dockerfile: ./batch/Dockerfile
+    image: user-api:latest
+    volumes:
+      - ./files:/files
+    environment:
+      FILE_CSV: ./files/users.csv
+      LIST_ONE: ./files/lista_relevancia_1.txt
+      LIST_TWO: ./files/lista_relevancia_2.txt
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: user-mongo
+    restart: always
+    image: mongo:latest
+    environment:
+      MONGO_DATA_DIR: /data/db
+      MONGO_LOG_DIR: /dev/null
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - 7700:27017
+    command: mongod --smallfiles --logpath=/dev/null
+
+volumes:
+  db-data:
